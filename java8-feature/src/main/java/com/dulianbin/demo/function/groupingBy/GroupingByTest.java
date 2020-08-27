@@ -15,7 +15,6 @@ public class GroupingByTest {
                 "blueberry",
                 "peach", "peach", "peach", "peach"
         );
-
         // 分组，计数
         Map<String, Long> result = items.stream()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
