@@ -12,7 +12,6 @@ import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,8 +31,9 @@ public class DuLianBinTomcat {
 
     private void init(){
         try{
-            String WEB_INF=this.getClass().getResource("/").getPath();
-            InputStream inputStream=new FileInputStream(WEB_INF+"web.properties");
+            /*String WEB_INF=this.getClass().getResource("/").getPath();
+            InputStream inputStream=new FileInputStream(WEB_INF+"web.properties");*/
+            InputStream inputStream=this.getClass().getResourceAsStream("/web.properties");
             webxml.load(inputStream);
 
             for (Object key: webxml.keySet()){

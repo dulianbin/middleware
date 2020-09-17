@@ -28,6 +28,7 @@ public class GroupingByPriceTest {
                 .collect(Collectors.groupingBy(Item::getPrice));
         System.out.println(groupByPriceMap);
 
+        System.out.println("--------------------");
         // 分组 转化List->Set
         Map<BigDecimal, Set<String>> result = items.stream()
                 .collect(Collectors.groupingBy(Item::getPrice, Collectors.mapping(Item::getName, Collectors.toSet())));
