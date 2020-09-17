@@ -25,6 +25,8 @@ public class DuLianBinTomcat {
 
     private Properties webxml = new Properties();
 
+    private String urlPattern="";
+
     public static void main(String[] args) {
         new DuLianBinTomcat().start();
     }
@@ -40,16 +42,34 @@ public class DuLianBinTomcat {
                 String k=key.toString();
                 if(k.endsWith(".url")){
                     String servletName=k.replaceAll("\\.url$","");
-                    String url = webxml.getProperty(k);
+                    String url = webxml.getProperty(k).split("\\.")[0];
                     System.out.println("servletName:"+servletName+",url:"+url);
                     String className = webxml.getProperty(servletName + ".className");
                     DulianbinServlet servlet=(DulianbinServlet)Class.forName(className).newInstance();
                     servletMapping.put(url, servlet);
                 }
+                if("servelt.port".equals(k)){
+                    port=Integer.parseInt(webxml.getProperty(k));
+                }
+
+                if("url.pattern".equals(k)){
+                    urlPattern=urlPattern(webxml.getProperty(k));
+                }
             }
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private String urlPattern(String suffix) throws Exception{
+        if(suffix==null || "".equals(suffix)|| "\\/".equals(suffix) || "\\/*".equals(suffix) ){
+            return ".";
+        }
+
+        if(suffix.contains(".")){
+            return "."+suffix.split("\\.")[1];
+        }
+        throw new Exception("配置异常");
     }
 
     public void start(){
@@ -106,8 +126,10 @@ public class DuLianBinTomcat {
                 // 转交给我们自己的response实现
                 DulianbinResponse response = new DulianbinResponse(ctx,req);
                 // 实际业务处理
-                String url = request.getUrl();
-                if(servletMapping.containsKey(url)){
+                String originalUrl = request.getUrl();
+                String url=getUrl(originalUrl).split("\\.")[0];
+                System.out.println("请求当前请求的url:"+originalUrl+",处理后的url:"+url);
+                if(url!=null && servletMapping.containsKey(url)){
                     servletMapping.get(url).service(request, response);
                 }else{
                     response.write("404 - Not Found");
@@ -115,5 +137,23 @@ public class DuLianBinTomcat {
 
             }
         }
+    }
+
+    private String getUrl(String url){
+
+        String tempUrl=null;
+        if(url.contains("?")){
+            tempUrl=url.split("\\?")[0];
+        }else{
+            tempUrl=url;
+        }
+
+        if(".".equals(urlPattern)){
+            return tempUrl;
+        }
+        if(tempUrl.lastIndexOf(urlPattern)<=0){
+            return null;
+        }
+        return tempUrl;
     }
 }

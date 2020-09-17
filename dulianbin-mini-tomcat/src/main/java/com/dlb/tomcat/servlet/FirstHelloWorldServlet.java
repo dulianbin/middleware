@@ -13,6 +13,8 @@ public class FirstHelloWorldServlet extends DulianbinServlet {
 
     @Override
     public void doPost(DulianbinRequest request, DulianbinResponse response) throws Exception {
-        response.write("This is First netty Serlvet");
+        String sss=request.getParameter("dulianbin");
+        System.out.println("参数:"+sss);
+        response.write("{\"code\":0,\"message\":\"请求成功\"}");
     }
 }
