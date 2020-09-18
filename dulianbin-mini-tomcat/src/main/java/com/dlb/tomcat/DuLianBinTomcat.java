@@ -3,14 +3,15 @@ package com.dlb.tomcat;
 import com.dlb.tomcat.http.DulianbinRequest;
 import com.dlb.tomcat.http.DulianbinResponse;
 import com.dlb.tomcat.http.DulianbinServlet;
+
+import io.netty.handler.codec.http.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.http.HttpRequest;
-import io.netty.handler.codec.http.HttpRequestDecoder;
-import io.netty.handler.codec.http.HttpResponseEncoder;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -26,6 +27,8 @@ public class DuLianBinTomcat {
     private Properties webxml = new Properties();
 
     private String urlPattern="";
+
+    private static final Logger logger = LoggerFactory.getLogger(DuLianBinTomcat.class);
 
     public static void main(String[] args) {
         new DuLianBinTomcat().start();
@@ -128,7 +131,7 @@ public class DuLianBinTomcat {
                 // 实际业务处理
                 String originalUrl = request.getUrl();
                 String url=getUrl(originalUrl).split("\\.")[0];
-                System.out.println("请求当前请求的url:"+originalUrl+",处理后的url:"+url);
+                logger.error("请求当前请求的url:"+originalUrl+",处理后的url:"+url);
                 if(url!=null && servletMapping.containsKey(url)){
                     servletMapping.get(url).service(request, response);
                 }else{

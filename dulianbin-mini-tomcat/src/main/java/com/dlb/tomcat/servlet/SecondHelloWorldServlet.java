@@ -12,7 +12,7 @@ public class SecondHelloWorldServlet extends DulianbinServlet {
 
     @Override
     public void doPost(DulianbinRequest request, DulianbinResponse response) throws Exception {
-        response.write("This is Second netty Serlvet");
+        response.write("{\"code\":0,\"message\":\"请求成功\",\"message\":\"库存添加成功\"}");
     }
 
 }

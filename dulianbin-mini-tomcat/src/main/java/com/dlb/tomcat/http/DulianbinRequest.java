@@ -25,6 +25,15 @@ public class DulianbinRequest {
         return req.getMethod().name();
     }
 
+/*    public String getJSONParameter(){
+        ByteBuf jsonBuf = req.;
+        String jsonStr = jsonBuf.toString(CharsetUtil.UTF_8);
+        *//*JSONObject jsonObj = JSONObject.fromObject(jsonStr);
+        String jobType = jsonObj.getString("jobType");
+        return jobType;*//*
+        return jsonStr;
+    }*/
+
     public Map<String, List<String>> getParameters(){
         QueryStringDecoder decoder = new QueryStringDecoder(req.uri());
         return decoder.parameters();
