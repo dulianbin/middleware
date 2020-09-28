@@ -23,9 +23,15 @@ public class GroupingByItemName {
         );
 
         Map<String,List<Item>> itemMap=items.stream().collect(Collectors.groupingBy(item -> item.getName()));
-        for (String key:itemMap.keySet()){
+        /*for (String key:itemMap.keySet()){
             System.out.println("key:"+key+",结果值:"+itemMap.get(key));
-        }
+        }*/
+        itemMap.forEach((key, itemList) -> {
+            System.out.println("遍历的key:"+key+",遍历的value如下:");
+            itemList.forEach(item -> System.out.println(item));
+            System.out.println("---------------遍历的key"+key+"结束---------------");
+        });
+
 
     }
 }
