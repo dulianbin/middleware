@@ -12,13 +12,13 @@ public class StreamTest {
         int l = 10;
         for (int i = 0; i < l; i++) {
             StringAndString s2 = new StringAndString();
-            s2.setName("test" + (100-i));
-            s2.setEmail("test" + i + "@qq.com");
+            s2.setName("staticproxy" + (100-i));
+            s2.setEmail("staticproxy" + i + "@qq.com");
             stringAndStrings.add(s2);
         }
         StringAndString s2 = new StringAndString();
-        s2.setName("test" + 1);
-        s2.setEmail("test" + 1+ "@qq.com");
+        s2.setName("staticproxy" + 1);
+        s2.setEmail("staticproxy" + 1+ "@qq.com");
         stringAndStrings.add(s2);
         stringAndStrings.add(stringAndStrings.get(3));
         stringAndStrings.add(stringAndStrings.get(3));

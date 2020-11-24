@@ -24,7 +24,7 @@ public class CyclicDependencies {
             e.printStackTrace();
         }
         for(int i=0; i<1000000;i++){
-            TestMemory t = new TestMemory(i,"test"+i,"深圳"+i,"123444554"+i);
+            TestMemory t = new TestMemory(i,"staticproxy"+i,"深圳"+i,"123444554"+i);
             map.put("key"+i,t);
         }
         System.out.println("second");
