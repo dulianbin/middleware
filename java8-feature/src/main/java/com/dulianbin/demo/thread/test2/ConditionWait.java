@@ -22,9 +22,9 @@ public class ConditionWait implements Runnable{
         try {
             lock.lock(); //竞争锁
             try {
-                System.out.println("begin - ConditionWait");
+                System.out.println("开始获取资源进入等待模式 - ConditionWait");
                 condition.await();//阻塞(1. 释放锁, 2.阻塞当前线程, FIFO（单向、双向）)
-                System.out.println("end - ConditionWait");
+                System.out.println("获取了资源并结束 - ConditionWait");
 
             } catch (InterruptedException e) {
                 e.printStackTrace();

@@ -22,7 +22,7 @@ public class ConditionNotify implements Runnable{
     public void run() {
         try{
             lock.lock();//获得了锁.
-            System.out.println("begin - conditionNotify");
+            System.out.println("获取资源前期准备，准备唤起线程 - conditionNotify");
             condition.signal();//唤醒阻塞状态的线程
 
             //if(uncondition){
@@ -31,7 +31,7 @@ public class ConditionNotify implements Runnable{
             //condition.notify;
 
             //condition.await();
-            System.out.println("end - conditionNotify");
+            System.out.println("获取资源前期准备完了，结束线程 - conditionNotify");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

@@ -9,11 +9,10 @@ import java.util.concurrent.CountDownLatch;
 public class CountDownLatchThreadCurrentTest implements  Runnable{
     private CountDownLatch currentSwitch;
     public static void main(String[] args) {
-        CountDownLatch currentSwitch=new CountDownLatch(1);
-        for (int i=0;i<=10000;i++){
+        CountDownLatch currentSwitch=new CountDownLatch(1000);
+        for (int i=0;i<1000;i++){
             new Thread(new CountDownLatchThreadCurrentTest(currentSwitch),"当前线程_"+i).start();
         }
-        currentSwitch.countDown();
     }
 
     public CountDownLatchThreadCurrentTest(CountDownLatch currentSwitch) {
@@ -24,6 +23,7 @@ public class CountDownLatchThreadCurrentTest implements  Runnable{
     public void run() {
         try {
             System.out.println("线程已经预热，等待开关释放当前时间："+System.currentTimeMillis()+",当前线程:"+Thread.currentThread().getName());
+            currentSwitch.countDown();
             currentSwitch.await();
             System.out.println("当前时间："+System.currentTimeMillis()+",当前线程:"+Thread.currentThread().getName()+",执行了");
 

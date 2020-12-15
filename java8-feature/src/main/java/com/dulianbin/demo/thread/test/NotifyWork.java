@@ -19,6 +19,7 @@ public class NotifyWork implements Runnable {
             System.out.println("notify work开始");
             condition.signal();
             System.out.println("notify work结束");
+
         }finally {
             lock.unlock();
         }
