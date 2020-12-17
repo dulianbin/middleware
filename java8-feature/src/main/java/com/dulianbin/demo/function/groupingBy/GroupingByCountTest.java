@@ -27,9 +27,21 @@ public class GroupingByCountTest {
                 .collect(Collectors.groupingBy(Item::getName, Collectors.counting()));
         System.out.println(counting);
 
-        // 分组，计数，数量
+        // 分组，统计数量 方式一
         Map<String, Integer> sum = items.stream()
                 .collect(Collectors.groupingBy(Item::getName, Collectors.summingInt(Item::getQty)));
+        System.out.println(sum);
+
+
+        //分组，统计数量 方式二 这种方式相比较于方式一可以加业务判断
+        Map<String, Integer> sum2 = items.stream()
+                .collect(Collectors.groupingBy(item->item.getName(), Collectors.summingInt(item->{
+                    if(item.getQty()>0){
+                        return item.getQty();
+                    }else{
+                        return 0;
+                    }
+                })));
         System.out.println(sum);
 
     }
